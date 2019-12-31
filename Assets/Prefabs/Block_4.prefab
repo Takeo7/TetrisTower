@@ -47,10 +47,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gc: {fileID: 0}
+  iac: {fileID: 0}
+  isIA: 0
   moveDistance: 0.165
   released: 0
   fallingVel: 0.015
   fallingRefresh: 0.015
+  isAcc: 0
   rb: {fileID: 2303004710286147093}
   block: {fileID: 904712446240644275}
   sr: {fileID: 904712446240644285}
@@ -67,7 +70,7 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
+  m_UseAutoMass: 1
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05

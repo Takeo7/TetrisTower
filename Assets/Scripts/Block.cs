@@ -7,6 +7,10 @@ public class Block : MonoBehaviour
     [Header("Controllers")]
     [SerializeField]
     GameController gc;
+    [SerializeField]
+    IA_Controller iac;
+    [SerializeField]
+    bool isIA = false;
 
     [Header("Stats")]
     [SerializeField]
@@ -41,6 +45,12 @@ public class Block : MonoBehaviour
     public void SetController(GameController g)
     {
         gc = g;
+    }
+
+    public void SetIAController(IA_Controller ia)
+    {
+        iac = ia;
+        isIA = true;
     }
 
     IEnumerator Start()
@@ -96,7 +106,15 @@ public class Block : MonoBehaviour
         released = true;
         rb.gravityScale = 1;
         rb.velocity = Vector3.zero;
-        gc.CurrentBlockRelesaed();
+        if (isIA.Equals(false))
+        {
+            gc.CurrentBlockRelesaed();
+        }
+        else
+        {
+            iac.CurrentBlockRelesaed();
+        }
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -113,12 +131,53 @@ public class Block : MonoBehaviour
         {
             if (collision.CompareTag("KillBlock"))
             {
-                gc.BlockLost();
+                if (isIA.Equals(false))
+                {
+                    gc.BlockLost();
+                }
+                else
+                {
+                    iac.BlockLost();
+                }
+                
                 Destroy(gameObject, 1f);
             }
             else if (collision.CompareTag("Finish"))
             {
                 Debug.Log("Win!!!");
+
+            }
+        }
+        else
+        {
+            if (collision.CompareTag("KillBlock"))
+            {
+                if (transform.position.x > 0)
+                {
+                    gc.SetMoveRight(false);
+                }
+                else if (transform.position.x < 0)
+                {
+                    gc.SetMoveLeft(false);
+                }
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (released == false)
+        {
+            if (collision.CompareTag("KillBlock"))
+            {
+                if (transform.position.x > 0)
+                {
+                    gc.SetMoveRight(true);
+                }
+                else if (transform.position.x < 0)
+                {
+                    gc.SetMoveLeft(true);
+                }
             }
         }
     }
