@@ -29,7 +29,13 @@ public class GameController : MonoBehaviour
 
     [Header("PlayerStats")]
     [SerializeField]
+    Scriptable_GameManagementData GameData;
+    [SerializeField]
     byte health = 5;
+
+    [Header("Wining Object")]
+    [SerializeField]
+    Transform winObj;
 
     [Header("Camera")]
     [SerializeField]
@@ -70,6 +76,7 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
+        SetStatsTools();
         uic.SetHearts(health);
         gameOver_Delegate += PauseTime;
         win_Delegate += PauseTime;
@@ -112,6 +119,12 @@ public class GameController : MonoBehaviour
 
     }
 
+    void SetStatsTools()
+    {
+        winObj.position = new Vector3(0, GameData.winHeight);
+        health = GameData.health;
+    }
+
     public void SetMoveRight(bool r)
     {
         moveRight = r;
@@ -137,6 +150,8 @@ public class GameController : MonoBehaviour
         }
         currentBlock = Instantiate(blockPrefabs[rand], spawnPoint.position, Quaternion.identity).GetComponent<Block>();
         currentBlock.SetController(instance);
+        currentBlock.SetGravity(GameData.gravity);
+        currentBlock.SetFallingVel(GameData.FallingVel);
 
         camera_main.Translate(Vector3.up * moveCamera);
     }

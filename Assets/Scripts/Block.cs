@@ -24,6 +24,8 @@ public class Block : MonoBehaviour
     [Range(0.01f, 3f)]
     float fallingRefresh = 0.1f;
     [SerializeField]
+    float gravity;
+    [SerializeField]
     bool isAcc = false;
     
 
@@ -51,6 +53,16 @@ public class Block : MonoBehaviour
     {
         iac = ia;
         isIA = true;
+    }
+
+    public void SetGravity(float g)
+    {
+        gravity = g;
+    }
+
+    public void SetFallingVel(float fv)
+    {
+        fallingVel = fv;
     }
 
     IEnumerator Start()
@@ -104,7 +116,7 @@ public class Block : MonoBehaviour
     {
         column.SetActive(false);
         released = true;
-        rb.gravityScale = 1;
+        rb.gravityScale = gravity;
         rb.velocity = Vector3.zero;
         if (isIA.Equals(false))
         {

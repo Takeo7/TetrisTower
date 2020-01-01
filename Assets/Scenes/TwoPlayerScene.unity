@@ -1540,7 +1540,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uic: {fileID: 905833553}
+  GameData: {fileID: 11400000, guid: 7273030bf9ee75e43a68e8b0579dacee, type: 2}
   health: 5
+  winObj: {fileID: 273555420}
   camera_main: {fileID: 519420032}
   moveCamera: 0.075
   blockPrefabs:
@@ -1555,6 +1557,7 @@ MonoBehaviour:
   inputDistX: 20
   inputDistY: 0
   moveRight: 1
+  moveLeft: 1
 --- !u!4 &905833552
 Transform:
   m_ObjectHideFlags: 0
